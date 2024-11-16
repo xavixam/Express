@@ -44,19 +44,40 @@ app.put("/products/id/:id",(req,res)=>{
 
 // Crear endpoint para poder eliminar un producto
 app.delete("/products/id/:id",(req,res)=>{
-    res.send(productos.filter(producto => producto.id != req.params.id))
+  res.send(productos.filter(producto => producto.id != req.params.id))
 })
 
 // Crear filtro por precio de producto
 
 
 // Crear filtro que muestre los productos con un precio entre 50 y 250.
-
+app.get("/products/entreprecios", (req, res) => {
+  const objProduct = []
+  productos.forEach(producto =>{
+    if (req.body.precio >= 50 && req.body.precio <= 250) {
+      objProduct.push(producto)
+      res.send(objProduct)
+    }
+  })
+})
 
 // Crear un filtro que cuando busque en postman por parámetro el id de un producto me devuelva ese producto
-
+app.get("/products/id/:id",(req,res)=>{    
+  productos.forEach(producto =>{
+    if (producto.id == req.params.id) {
+      res.send(producto)
+    }
+  })
+})
 
 // Crear un filtro que cuando busque en postman por parámetro el nombre de un producto me devuelva ese producto
-
+// const nuevaUrl = "/products/nombre/:nombre".trim()
+app.get("/products/nombre/:nombre",(req,res)=>{    
+  productos.forEach(producto =>{
+    if (producto.nombre == req.params.nombre) {
+      res.send(producto)
+    }
+  })
+})
 
 app.listen(PORT, () => console.log(`Servidor levantado en el puerto ${PORT}`));
