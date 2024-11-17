@@ -48,13 +48,19 @@ app.delete("/products/id/:id",(req,res)=>{
 })
 
 // Crear filtro por precio de producto
-
+app.get("/products/precio/:precio",(req,res)=>{    
+  productos.forEach(producto =>{
+    if (producto.precio == req.params.precio) {
+      res.send(producto)
+    }
+  })
+})
 
 // Crear filtro que muestre los productos con un precio entre 50 y 250.
 app.get("/products/entreprecios", (req, res) => {
   const objProduct = []
   productos.forEach(producto =>{
-    if (req.body.precio >= 50 && req.body.precio <= 250) {
+    if (producto.precio >= 50 && producto.precio <= 250) {
       objProduct.push(producto)
       res.send(objProduct)
     }
